@@ -9,7 +9,7 @@
     <packaging>pom</packaging>
 
     <modules>
-      
+      <module>transactional.outbox</module>
     </modules>
 
 </project>
