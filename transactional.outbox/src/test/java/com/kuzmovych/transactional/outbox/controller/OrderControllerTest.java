@@ -2,7 +2,7 @@ package com.kuzmovych.transactional.outbox.controller;
 
 import com.kuzmovych.transactional.outbox.entity.OrderEntity;
 import com.kuzmovych.transactional.outbox.mapper.OrderMapper;
-import com.kuzmovych.transactional.outbox.service.OrderService;
+import com.kuzmovych.transactional.outbox.service.OrderManager;
 import org.instancio.Instancio;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,7 +19,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class OrderControllerTest {
   @Mock
-  private OrderService orderService;
+  private OrderManager orderManager;
   @Mock
   private OrderMapper orderMapper;
 
@@ -27,12 +27,12 @@ class OrderControllerTest {
 
   @BeforeEach
   public void setUp() {
-    orderController = new OrderController(orderService, orderMapper);
+    orderController = new OrderController(orderManager, orderMapper);
   }
 
   @AfterEach
   public void tearDown() {
-    verifyNoMoreInteractions(orderService, orderMapper);
+    verifyNoMoreInteractions(orderManager, orderMapper);
   }
 
   @Test
@@ -44,12 +44,12 @@ class OrderControllerTest {
 
     orderController.createOrder();
 
-    verify(orderService).createOrder();
+    verify(orderManager).createOrder();
     verify(orderMapper).mapToDTO(testOrderEntity);
   }
 
   private void mockCreateOrder(OrderEntity testOrderEntity) {
-    when(orderService.createOrder()).thenReturn(testOrderEntity);
+    when(orderManager.createOrder()).thenReturn(testOrderEntity);
   }
 
 }
