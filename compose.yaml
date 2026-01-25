@@ -1,0 +1,42 @@
+services:
+  postgres-db:
+    image: "postgres:18.1"
+    env_file:
+      - ".env"
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 10s
+      retries: 5
+      start_period: 30s
+      timeout: 10s
+    networks:
+      - back-end
+
+  rabbitmq:
+    image: "rabbitmq:4.2-management"
+    env_file:
+      - ".env"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD-SHELL", "rabbitmq-diagnostics -q ping"]
+      interval: 10s
+      retries: 10
+      start_period: 30s
+      timeout: 10s
+    networks:
+      - back-end
+
+volumes:
+  postgres-data: {}
+  rabbitmq-data: {}
+
+networks:
+  back-end: {}
