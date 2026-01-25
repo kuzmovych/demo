@@ -5,8 +5,6 @@ import com.kuzmovych.transactional.outbox.model.OrderStatus;
 import com.kuzmovych.transactional.outbox.repository.OrderRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
-
 @Service
 public class OrderService {
   private final OrderRepository orderRepository;
