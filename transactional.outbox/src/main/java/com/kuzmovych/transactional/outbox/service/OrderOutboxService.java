@@ -5,7 +5,6 @@ import com.kuzmovych.transactional.outbox.model.OrderOutboxEventStatus;
 import com.kuzmovych.transactional.outbox.model.OrderOutboxEventType;
 import com.kuzmovych.transactional.outbox.repository.OrderOutboxRecordRepository;
 import jakarta.transaction.Transactional;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,7 +27,7 @@ public class OrderOutboxService {
   }
 
   public List<OrderOutboxRecordEntity> getNewRecords(int size) {
-    return orderOutboxRecordRepository.getBatch(OrderOutboxEventStatus.NEW, Pageable.ofSize(size));
+    return orderOutboxRecordRepository.claimBatch(size);
   }
 
   @Transactional
