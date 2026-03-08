@@ -9,7 +9,8 @@
     <packaging>pom</packaging>
 
     <modules>
-      <module>transactional.outbox</module>
+        <module>transactional.outbox</module>
+        <module>hexagonal.architecture</module>
     </modules>
 
 </project>
